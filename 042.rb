@@ -45,23 +45,28 @@ Clarifications:
 =end
 
 ################ failed ##############
+# def queue_time(customers, n)
+#   return customers.sum if n == 1
+#   return customers.max if n >= customers.size
+#   return customers.max if customers.max > (customers - [customers.max]).sum
+#
+#   res = []
+#   start = customers.take(n)
+#
+#   (customers - start).each do |e|
+#     m = start.min
+#     res << m
+#     start.delete(m)
+#     start.map! { |x| x - m }
+#     start << e
+#   end
+#
+#   res.sum + start.max
+# end
 def queue_time(customers, n)
-  return customers.sum if n == 1
-  return customers.max if n >= customers.size
-  return customers.max if customers.max > (customers - [customers.max]).sum
-
-  res = []
-  start = customers.take(n)
-
-  (customers - start).each do |e|
-    m = start.min
-    res << m
-    start.delete(m)
-    start.map! { |x| x - m }
-    start << e
-  end
-
-  res.sum + start.max
+  arr = Array.new(n, 0)
+  customers.each { |customer| arr[arr.index(arr.min)] += customer }
+  arr.max
 end
 
 =begin

@@ -37,4 +37,8 @@ def domain_name(url)
   url.match(%r{//[^/]*?([^/.]+)\.[^/.]+(/|$)})[1]
 end
 
+def domain_name(url)
+  url.match(/.*[\.\/](.*)\./)[1]
+end
+
 =end
