@@ -1,0 +1,44 @@
+=begin
+
+Question: Sort the odd
+
+Description:
+  You will be given an array of numbers. You have to sort the odd numbers in ascending
+  order while leaving the even numbers at their original positions.
+
+Examples:
+  [7, 1]  =>  [1, 7]
+  [5, 8, 6, 3, 4]  =>  [3, 8, 6, 5, 4]
+  [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]  =>  [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+
+=end
+
+def sort_array(source_array)
+  tmp = []
+
+  source_array.each_with_index do |e, i|
+    if e.odd?
+      tmp << e
+      source_array[i] = nil
+    end
+  end
+
+  tmp.sort!
+
+  source_array.each_with_index do |e, i|
+    if e.nil?
+      source_array[i] = tmp.shift
+    end
+  end
+end
+
+=begin
+
+Others' solutions:
+
+def sort_array(source_array)
+  odds = source_array.select(&:odd?).sort
+  source_array.map { |n| n.even? ? n : odds.shift }
+end
+
+=end
