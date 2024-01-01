@@ -53,6 +53,27 @@ end
 Others' solutions:
 
 # 1.
+# example_string = "hello"
+# /./ => matches one character at a time and stores all matches in one array
+# e.g.=> ["h", "e", "l", "l", "o"]
+# /../ => matches two characters at a time and stores all matches in one array
+# e.g. => ["he", "ll"]
+# /(.)/ => matches one character at a time and stores each match in its own array
+# e.g. => [["h"], ["e"], ["l"], ["l"], ["o"]]
+# /(.)(.)/ => matches two characters at a time and stores both in their own array
+# e.g. => [["h", "e"], ["l", "l"]]
+# /(.)(.)?/ => matches two characters at a time and stores both in their own array, AND it includes
+# whatever is left and groups that in two as well (if there's anything left).
+# e.g. => [["h", "e"], ["l", "l"], ["o", nil]]
+# Read more about regular expressions in Ruby here: https://www.rubyguides.com/2015/06/ruby-regex/
+# Read more about the use of '?' in Ruby regualr expressions here: https://www.regular-expressions.info/optional.html
+# --
+# A little nitpick if N is large these recursive calls get pretty poor for your stack. Now someone might (correctly) say that these calls are tail recursive.
+# But in ruby Tail call optimization is NOT performed by default.
+# This can be set in the compiler at runtime with a statement like
+# RubyVM::InstructionSequence.compile_option = { tailcall_optimization: true, trace_instruction: false }
+# See also http://nithinbekal.com/posts/ruby-tco/
+# --
 def encrypt(text, n)
   return text if n <= 0
   encrypt(text.scan(/(.)(.)?/).transpose.reverse.join, n-1)
