@@ -18,7 +18,7 @@ For example:
 
 =end
 
-def solve(arr,n)
+def solve_121(arr,n)
   max = 0
   already_catch = {}
 
