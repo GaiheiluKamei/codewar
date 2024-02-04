@@ -12,7 +12,7 @@ Examples:
 
 =end
 
-def solution(nums)
+def solution_95(nums)
   nums ? nums.sort : []
 end
 
