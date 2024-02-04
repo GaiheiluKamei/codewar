@@ -30,30 +30,27 @@ end
 
 Others' solutions:
 
-def solution(list)
-  list.chunk_while { |n1, n2| n2 - n1 == 1 }
-      .map { |set| set.size > 2 ? "#{set.first}-#{set.last}" : set }
-      .join(',')
+# 学习了，没用过这个库
+require 'ipaddr'
+def ipsBetween(start, ending)
+  IPAddr.new(ending).to_i - IPAddr.new(start).to_i
 end
 
-def solution list
-  array = [[list.first]]
-  list[1..-1].each { |x| array.last[-1] +  1 == x ? array.last << x : array << [x] }
-  array.map{ |x| x.size > 2 ? "#{x[0]}-#{x[-1]}" : x.join(',') }.join(',')
+def ipsBetween(start, ending)
+  ip_to_int = lambda { |x| x.split('.').reduce(0) { |a, e| a*256+e.to_i } }
+  ip_to_int.(ending) - ip_to_int.(start)
 end
 
-def solution(list)
-  prev = list.first
-  list.slice_before do |e|
-    prev, prev2 = e, prev
-    prev2 + 1 != e
-  end.map do |chunk|
-    chunk.size <= 2 ? chunk.join(",") : "#{chunk.first}-#{chunk.last}"
-  end.join(",")
+def ipsBetween(start, ending)
+  s = start.split(".").map{|n| n.to_i}
+  e = ending.split(".").map{|n| n.to_i}
+
+  (e[3] - s[3]) + (e[2] - s[2])*256 + (e[1] - s[1])*256*256 + (e[0] - s[0])*256*256*256
 end
 
-def solution(list)
-  list.slice_when{|i, j| j - i > 1}.map{|x|x.size < 3 ? x * ',' : ["%s-%s" % [x[0], x[-1]]]}*','
+def ipsBetween(start, ending)
+  c = ->(i){i.split(".").map(&:to_i).pack("CCCC").unpack("N").first}
+  c[ending] - c[start]
 end
 
 =end
